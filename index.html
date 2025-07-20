@@ -366,7 +366,7 @@
           gap: 1rem;
         }
       }
-      /* Base nav styling */
+     
       .nav-links {
         display: flex;
         flex-wrap: wrap;
@@ -375,7 +375,7 @@
         padding: 1rem 0;
       }
 
-      /* Responsive nav styling */
+      
       @media (max-width: 768px) {
         .nav-links {
           flex-direction: row;
@@ -384,7 +384,7 @@
           gap: 0.5rem;
         }
       }
-      /* Make layout stack vertically on small screens */
+      
       @media (max-width: 768px) {
         .main-content {
           display: block;
@@ -409,22 +409,171 @@
           font-size: 0.85rem;
         }
       }
+      /* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #e4e6ea;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+/* Mobile Menu Sidebar */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -280px; 
+    width: 280px; 
+    height: 100vh;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    border-left: 2px solid rgba(14, 165, 233, 0.3);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-overlay.active {
+    right: 0; 
+}
+
+
+.menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.menu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    padding: 2rem 0 0 0;
+    margin: 0;
+    height: 100%;
+}
+
+.mobile-nav-links a {
+    color: #e4e6ea;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+    display: block;
+}
+
+.mobile-nav-links a:hover {
+    background: rgba(14, 165, 233, 0.1);
+    color: #26b3f4;
+    padding-left: 2rem;
+}
+
+
+.mobile-menu-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid rgba(14, 165, 233, 0.2);
+    background: rgba(14, 165, 233, 0.1);
+}
+
+.mobile-menu-title {
+    color: #0ea5e9;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+
+
+body.menu-open {
+  overflow: hidden;
+}
+
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}
     </style>
   </head>
   <body>
     <header>
-      <nav class="container">
-        <div class="logo">JS Scroll</div>
-        <ul class="nav-links">
-          
-          <li><a href="#functions">Functions</a></li>
-          <li><a href="#objects">Objects</a></li>
+   <nav class="container">
+  <div class="logo">JS Scroll</div>
+  
+  
+  <ul class="nav-links">
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#objects">Objects</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#async">Async</a></li>
+  </ul>
 
-          <li><a href="#events">Events</a></li>
-          <li><a href="#async">Async</a></li>
-        </ul>
-      </nav>
+  
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
     </header>
+   
+<div class="menu-backdrop" id="menuBackdrop"></div>
+
+
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <h3 class="mobile-menu-title">Navigation</h3>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="#functions" onclick="closeMobileMenu()">Functions</a></li>
+        <li><a href="#objects" onclick="closeMobileMenu()">Objects</a></li>
+        <li><a href="#events" onclick="closeMobileMenu()">Events</a></li>
+        <li><a href="#async" onclick="closeMobileMenu()">Async</a></li>
+    </ul>
+</div>
 
     <section class="hero">
       <div class="container">
@@ -925,7 +1074,7 @@ getUserData();</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
     <script>
-      // Interactive example function
+      
       function runCircleExample() {
         function calculateCircleArea(radius) {
           const PI = 3.14159;
@@ -939,7 +1088,7 @@ getUserData();</code></pre>
         )} square units`;
       }
 
-      // Smooth scrolling for navigation links
+      
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -952,7 +1101,7 @@ getUserData();</code></pre>
         });
       });
 
-      // Update active sidebar link based on scroll position
+
       window.addEventListener("scroll", () => {
         const sections = document.querySelectorAll(".lesson");
         const navLinks = document.querySelectorAll(".sidebar a");
@@ -974,5 +1123,45 @@ getUserData();</code></pre>
         });
       });
     </script>
+  <script>// Hamburger Menu Functionality
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuBackdrop = document.getElementById('menuBackdrop');
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    menuBackdrop.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+}
+
+// Close mobile menu
+function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    menuBackdrop.classList.remove('active');
+    document.body.classList.remove('menu-open');
+}
+
+// Event listeners
+hamburger.addEventListener('click', toggleMobileMenu);
+
+// Close menu when clicking backdrop
+menuBackdrop.addEventListener('click', closeMobileMenu);
+
+// Close menu on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
+});
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
+});</script>
   </body>
 </html>
